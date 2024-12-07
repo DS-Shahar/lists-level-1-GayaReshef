@@ -11,7 +11,7 @@ public class Main {
 	
 	public static void main(String[]args) {
 
-		System.out.println("The list:");
+	    System.out.println("The list:");
 	    printList(list);
 	    System.out.println(list2);
 //	    
@@ -171,7 +171,7 @@ public class Main {
 		    return head; 
 	}
 	
-	//בשביל עצמי בלי רקורסיה
+	//בשבילי בלי רקורסיה
 	public  static boolean list1IsInList2 (Node <Integer> headL1, Node <Integer> headL2){
 		Node<Integer> currentL1 = headL1;
 		Node<Integer> currentL2 = headL2;
