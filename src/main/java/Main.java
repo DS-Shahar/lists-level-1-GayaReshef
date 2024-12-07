@@ -3,43 +3,49 @@ package List;
 import java.util.Scanner;
 
 public class Main {
+	static int [] arr= {7, 8, 2};
+	static int [] arr2= {7, 8, 5, 2};
+	static Node<Integer> list = buildList(arr);
+	static Node<Integer> list2 = buildList(arr2);
+	static Node<Integer> list2Head = list2;
 	
 	public static void main(String[]args) {
-		int [] arr= {7, 2, 8};
-
-		Node<Integer> list = buildList(arr);
-		Node<Integer> list2 = buildList(arr);
-
 
 		System.out.println("The list:");
 	    printList(list);
-	    
-	    System.out.println("The list- recursion: ");
-	    printListRecursive(list);  
-
-	    System.out.println("The list- reverse: ");
-	    printListReverse(list);
+	    System.out.println(list2);
+//	    
+//	    System.out.println("The list- recursion: ");
+//	    printListRecursive(list);  
+//
+//	    System.out.println("The list- reverse: ");
+//	    printListReverse(list);
+//		
+//		
+//		//System.out.println(inputList());
+//		
+//		System.out.print ("The zoogi numbers in the list are: ");
+//		zoogiNumbersInList(list);
+//		System.out.println();
+//		
+//		boolean numInList = findNumberInList(list, 7);
+//		System.out.print ("Is number in list? ");
+//		System.out.println (numInList);
+//		
+//		
+//		System.out.print ("Is number in list?- recursion: ");
+//		System.out.println (findNumberInListRecursion(list, 7));
+//		
+//	    list = deleteNode (list, 7);
+//		System.out.println("Delete Node: " + list);
+//		
+//		list2 = deleteNodeInX (list2, 2);
+//		System.out.println("Delete node in index: " + list2);
+//		
+		System.out.println ("L1 in L2? " + list1IsInList2(list, list2));
 		
 		
-		//System.out.println(inputList());
-		
-		System.out.print ("The zoogi numbers in the list are: ");
-		zoogiNumbersInList(list);
-		System.out.println();
-		
-		boolean numInList = findNumberInList(list, 7);
-		System.out.print ("Is number in list? ");
-		System.out.println (numInList);
-		
-		
-		System.out.print ("Is number in list?- recursion: ");
-		System.out.println (findNumberInListRecursion(list, 7));
-		
-	    list = deleteNode (list, 7);
-		System.out.println("Delete Node: " + list);
-		
-		list2 = deleteNodeInX (list2, 0);
-		System.out.println("Delete node in index: " + list2);
+		System.out.println ("L1 in L2- Recursion? " + list1IsInList2Recursion(list, list2));
 		
 }
 	
@@ -47,7 +53,7 @@ public class Main {
 		Node<Integer> head = new Node<>(arr[0]);
 		Node<Integer> prev = head;
 		for(int i=1; i<arr.length; i++) {
-			Node<Integer>p=new Node <Integer>(arr[i]);
+			Node <Integer> p = new Node <Integer>(arr[i]);
 			prev.setNext(p);
 			prev=p;
 		}
@@ -150,11 +156,11 @@ public class Main {
 		 if (head == null) {
 		        return null;
 		    }
-		  if (x == 0) {
+		  if (x == 1) {
 		        return head.getNext();
 		    }
 		  Node<Integer> current = head;
-		    int count = 0;
+		    int count = 1;
 
 		    while (current != null && count < x - 1) {
 		        current = current.getNext();
@@ -163,6 +169,45 @@ public class Main {
 		    
 		    current.setNext(current.getNext().getNext()); 
 		    return head; 
+	}
+	
+	//בשביל עצמי בלי רקורסיה
+	public  static boolean list1IsInList2 (Node <Integer> headL1, Node <Integer> headL2){
+		Node<Integer> currentL1 = headL1;
+		Node<Integer> currentL2 = headL2;
+		boolean found = false;
+		while (currentL1 != null) {
+			currentL2 = headL2;
+			found = false;
+			while (currentL2 !=  null) {
+				if (currentL1.getValue() == currentL2.getValue()) {
+					found = true;
+				}
+				currentL2 = currentL2.getNext();
+			}
+			if (found == false) {
+				return false;
+			}
+			 currentL1 = currentL1.getNext();
+		}
+	
+		return true;
+	}
+	
+	
+	public static boolean list1IsInList2Recursion(Node<Integer> currentL1, Node<Integer> currentL2) {
+	    if (currentL1 == null) {
+	        return true;
+	    }
+
+	    if (currentL2 == null) {
+	        return false;
+	    }
+
+	    if (currentL1.getValue() == (currentL2.getValue())) {
+	        return list1IsInList2Recursion(currentL1.getNext(), list2Head);  
+	    }
+	    return list1IsInList2Recursion(currentL1, currentL2.getNext());  
 	}
 
 }
