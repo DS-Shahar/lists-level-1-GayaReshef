@@ -1,9 +1,9 @@
 package List;
 
-import java.util.Scanner;
+iimport java.util.Scanner;
 
 public class Main {
-	static int [] arr= {7, 8, 2};
+	static int [] arr= {9, 8, 2};
 	static int [] arr2= {7, 8, 5, 2};
 	static Node<Integer> list = buildList(arr);
 	static Node<Integer> list2 = buildList(arr2);
@@ -46,6 +46,8 @@ public class Main {
 		
 		
 		System.out.println ("L1 in L2- Recursion? " + list1IsInList2Recursion(list, list2));
+		
+		 printList1IsInList2(list, list2);
 		
 }
 	
@@ -210,4 +212,18 @@ public class Main {
 	    return list1IsInList2Recursion(currentL1, currentL2.getNext());  
 	}
 
+	public  static void printList1IsInList2 (Node <Integer> headL1, Node <Integer> headL2){
+		Node<Integer> currentL1 = headL1;
+		Node<Integer> currentL2 = headL2;
+		while (currentL1 != null) {
+			currentL2 = headL2;
+			while (currentL2 !=  null) {
+				if (currentL1.getValue() == currentL2.getValue()) {
+					System.out.print (" currentL1: " + currentL1.getValue());
+				}
+				currentL2 = currentL2.getNext();
+			}
+			currentL1 = currentL1.getNext();
+		}
+	}
 }
