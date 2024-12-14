@@ -1,10 +1,10 @@
 package List;
 
-iimport java.util.Scanner;
+import java.util.Scanner;
 
 public class Main {
-	static int [] arr= {9, 8, 2};
-	static int [] arr2= {7, 8, 5, 2};
+	static int [] arr= {7, 8, 2};
+	static int [] arr2= {2, 8, 5, 9};
 	static Node<Integer> list = buildList(arr);
 	static Node<Integer> list2 = buildList(arr2);
 	static Node<Integer> list2Head = list2;
@@ -48,7 +48,12 @@ public class Main {
 		System.out.println ("L1 in L2- Recursion? " + list1IsInList2Recursion(list, list2));
 		
 		 printList1IsInList2(list, list2);
-		
+		 
+		 Node<Integer> newList = findCommonValuesNewList (list, list2);
+		 System.out.println ("new list: " + newList);
+		 
+		 Node<Integer> newL1 = removeNodesInList1(list, list2);
+		 System.out.println ("new list 1: " + newL1);
 }
 	
 	public static Node<Integer> buildList (int []arr) {
@@ -219,11 +224,66 @@ public class Main {
 			currentL2 = headL2;
 			while (currentL2 !=  null) {
 				if (currentL1.getValue() == currentL2.getValue()) {
-					System.out.print (" currentL1: " + currentL1.getValue());
+					System.out.println (currentL1.getValue());
 				}
 				currentL2 = currentL2.getNext();
 			}
 			currentL1 = currentL1.getNext();
 		}
 	}
+	
+	public static Node<Integer> findCommonValuesNewList(Node<Integer> list1, Node<Integer> list2) {
+	    Node<Integer> dummy = new Node<>(0); 
+	    Node<Integer> current = dummy;
+
+	    Node<Integer> current1 = list1;
+
+	    while (current1 != null) {
+	        Node<Integer> current2 = list2;
+	        boolean found = false;
+	        while (current2 != null && !found) {
+	            if (current1.getValue().equals(current2.getValue())) {
+	                current.setNext(new Node<>(current1.getValue())); 
+	                current = current.getNext();
+	                found = true; 
+	            }
+	            current2 = current2.getNext();
+	        }
+
+	        current1 = current1.getNext();
+	    }
+
+	    return dummy.getNext(); 
+	}
+	
+	
+	public static Node<Integer> removeNodesInList1(Node<Integer> list1, Node<Integer> list2) {
+	    Node<Integer> dummy = new Node<>(0);
+	    dummy.setNext(list1);
+	    Node<Integer> prev = dummy;
+	    Node<Integer> current = list1;
+
+	    while (current != null) {
+	        Node<Integer> temp = list2;
+	        boolean found = false;
+
+	        while (temp != null && !found) {
+	            if (current.getValue().equals(temp.getValue())) {
+	                found = true; 
+	            }
+	            temp = temp.getNext();
+	        }
+
+	        if (found) {
+	            prev.setNext(current.getNext());
+	        } else {
+	            prev = current;
+	        }
+	        current = current.getNext();
+	    }
+
+	    return dummy.getNext();
+	}
+
+
 }
