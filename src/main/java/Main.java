@@ -241,7 +241,7 @@ public class Main {
 	    while (current1 != null) {
 	        Node<Integer> current2 = list2;
 	        boolean found = false;
-	        while (current2 != null && !found) {
+	        while (current2 != null && found == false) {
 	            if (current1.getValue().equals(current2.getValue())) {
 	                current.setNext(new Node<>(current1.getValue())); 
 	                current = current.getNext();
@@ -258,31 +258,30 @@ public class Main {
 	
 	
 	public static Node<Integer> removeNodesInList1(Node<Integer> list1, Node<Integer> list2) {
-	    Node<Integer> dummy = new Node<>(0);
-	    dummy.setNext(list1);
-	    Node<Integer> prev = dummy;
-	    Node<Integer> current = list1;
-
-	    while (current != null) {
-	        Node<Integer> temp = list2;
-	        boolean found = false;
-
-	        while (temp != null && !found) {
-	            if (current.getValue().equals(temp.getValue())) {
-	                found = true; 
-	            }
-	            temp = temp.getNext();
-	        }
-
-	        if (found) {
-	            prev.setNext(current.getNext());
-	        } else {
-	            prev = current;
-	        }
-	        current = current.getNext();
-	    }
-
-	    return dummy.getNext();
+		 Node<Integer> dummy = new Node<>(-1, list1);
+		 Node<Integer> p2 = list2;
+		 Node<Integer> current = list1;
+		 Node<Integer> p1 = dummy;
+		 
+		 while (current != null) {
+		     boolean found = false;
+			 p2 = list2;
+			 while (p2 != null && found == false) {
+				 if (current.getValue().equals(p2.getValue())) {
+					 found = true; 
+				 }
+					 p2 = p2.getNext();
+			 }
+			 if ( found == true) {
+				 p1.setNext(current.getNext());
+			 }
+			 else {
+				p1 = current; 
+				 
+			 }
+			 current = current.getNext();
+		 }
+		 return dummy.getNext();
 	}
 
 
